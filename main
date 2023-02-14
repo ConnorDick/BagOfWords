@@ -1,0 +1,45 @@
+import numpy as np
+
+string_list_test = ['hi', 'you', 'me', 'are']
+
+dict_size = 4
+
+#find N most popular words in corpora
+def mostPopularWords (listProvided, n = dict_size):
+    word_popularity_dict = {}
+    for string in listProvided:
+        for word in string.split():
+            if word in word_popularity_dict:
+                word_popularity_dict[word] = word_popularity_dict[word] + 1
+            else:
+                word_popularity_dict[word] = 1
+    word_popularity_dict = dict(sorted(word_popularity_dict.items(), key = lambda x:x[1], reverse = True))
+    nMostPopularWordsKeys = list(word_popularity_dict.keys())
+    nMostPopularWords = nMostPopularWordsKeys[:n]
+    return nMostPopularWords
+
+#numerate N most popular words
+def enumerateMostPopulfarWords(listProvided):
+    temp = 0
+    enumerateDict = {}
+    for string in listProvided:
+        enumerateDict[string] = temp
+        temp = temp + 1
+    return enumerateDict
+
+def my_bag_of_words(text, words_to_index, dict_size):
+   result_vector = np.zeros(dict_size)
+   for string in text.split():
+        if string in words_to_index:
+            result_vector[words_to_index[string]] = result_vector[words_to_index[string]] + 1
+   return result_vector
+
+
+#test = mostPopularWords(string_list_test)
+#print(test)
+#test2 = enumerateMostPopulfarWords(test)
+#print(test2)
+
+#test_here = 'hi how are you'
+#result = list(my_bag_of_words(test_here, test2, dict_size))
+#print(result)
